@@ -1,0 +1,23 @@
+{
+    "name" : "mfurman/PDOModel",
+    "description" : "It is a library of PDO model representations",
+    "require" : {
+        "php-64bit" : "^7.4"
+    },
+    "autoload" : {
+        "psr-4" : {
+            "mfurman\\" : ["/"]
+        }
+    },
+    "authors":[
+        {
+            "name" : "Michał Furman",
+            "email" : "brudka@gmail.com"
+        }
+    ],
+    "type" : "library",
+    "keywords" : [
+        "PDO", "model", "php", "Mysql", "SQL"
+    ],
+    "license" : "BSD"
+}
