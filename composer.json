@@ -1,9 +1,6 @@
 {
     "name" : "mfurman/pdomodel",
     "description" : "It is a library of PDO model representations",
-    "require" : {
-        "php-64bit" : "^7.4"
-    },
     "autoload" : {
         "psr-4" : {
             "mfurman\\" : ["/"]
