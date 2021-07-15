@@ -1,12 +1,9 @@
 <?php
 	/**
 	* 	Bazowa klasa dla PDO,
-	*       Jest to klasa dodana do projektu z własnego repozytorium.
-	*       Klasa generuje jedyną instancję, singletone połączenia z bazą danych.
-	*       W każdym momencie w aplikacji możemy mieć do niej dostęp przez statyczną metodę: get()
 	*/
 
-    namespace Myvendor\Actaskman\Models;
+    namespace mfurman\pdomodel;
 
 	use PDO;
 

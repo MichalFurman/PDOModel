@@ -3,7 +3,7 @@
 	* 	Interfejs / kontrakt klasy komunikacji z bazą danych
 	*/
 
-    namespace Myvendor\Actaskman\Models;
+    namespace mfurman\pdomodel;
 
 	interface idbAccess
 	{

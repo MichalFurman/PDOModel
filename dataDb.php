@@ -1,5 +1,5 @@
 <?php
-    namespace Myvendor\Actaskman\Models;
+    namespace mfurman\pdomodel;
 
 	use http\Exception\InvalidArgumentException;
 

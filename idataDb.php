@@ -1,5 +1,5 @@
 <?php
-    namespace Myvendor\Actaskman\Models;
+    namespace mfurman\pdomodel;
 
 	interface idataDb 
 	{
