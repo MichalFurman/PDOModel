@@ -19,5 +19,5 @@
     "keywords" : [
         "PDO", "model", "php", "Mysql", "SQL"
     ],
-    "license" : "BSD"
+    "license" : "BSD-3-Clause-Attribution"
 }
