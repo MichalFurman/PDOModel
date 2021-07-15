@@ -55,14 +55,14 @@ PDO access class with PDO model.
 
         public function add(array $data) :int
         {
-            $this->set(array('user_name'=>$request['user_name']));        
+            $this->set(array('user_name'=>$data['user_name']));        
             return $this->insert($this->users_table);
         }
 
         public function updateOne(array $data, int $id) :bool
         {
             if (empty($this->read($this->users_table,'*','id = '.$id)->get())) return false;
-            $this->set(array('user_name'=>$request['user_name']));
+            $this->set(array('user_name'=>$data['user_name']));
             $this->update($this->users_table, $id);
             return true;
         }  
