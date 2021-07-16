@@ -1,7 +1,13 @@
 # PDO Model
 PDO access class with PDO model.
 
-## Simply Usage
+## Simple Instalation
+
+Just use composer for install new dependency:
+```composer require mfurman/pdomodel```
+
+
+## Simple Usage
 
 First set config for MySQL database (it can be simple array):
 
