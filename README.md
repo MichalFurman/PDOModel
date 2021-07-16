@@ -249,7 +249,7 @@ It using session data to recognize existing user and his activity.
 We have to set two session data for logged in user:
 ```php
     $_SESSION['user_id'] = 12               // set when user log in - for eg ID from users table,
-    $_SESSION['user_name'] = 'John Smith'   // set when user log in - usermane from users table,
+    $_SESSION['user_name'] = 'John Smith'   // set when user log in - username from users table,
 ```
 
 General log table must have these specyfic columns and name:
@@ -260,8 +260,8 @@ columns:
 - 'date': timestampler,
 - 'user_id': int - $_SESSION['user_id'] 
 - 'user_name': string - $_SESSION['user_name']
-- 'method': string - (INSERT, UPDATE, DELETE)
-- 'value': string - (SQL string)
+- 'method': string - (INSERT, UPDATE, DELETE - methods that executed on database)
+- 'value': string - (SQL query that the user generated)
 
 All data in general log will be automatically filled when flag 'log_rec' is set to 'true'.
 
