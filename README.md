@@ -18,8 +18,7 @@ First set config for MySQL database (it can be simple array):
 Then initialize singletone instance of PDOAccess by execute static method GET:
 
 ```php
-   use \mfurman\pdomodel\PDOAccess;
-   DOAccess::get($config);
+   \mfurman\pdomodel\PDOAccess::get($config);
 ```
 
 At this moment You have one instance of PDO Access class in Your app, You can get whis instance whenever You want.
