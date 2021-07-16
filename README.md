@@ -241,7 +241,8 @@ We have to set two session data for logged in user:
 ```
 
 General log table must have these specyfic columns and name:
-name: 'general_log'
+
+table name: 'general_log'
 
 columns:
 - 'date': timestampler,
