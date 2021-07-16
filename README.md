@@ -235,11 +235,12 @@ $this->exist(table,['name1' =>'value1', 'name2' => 'value2', ...], where)
 
 General log table is using when we have set session between user and server.
 It using session data to recognize existing user and his activity.
-We heve to set two session data for logged user:
+We have to set two session data for logged in user:
 ```php
     $_SESSION['user_id'] = 12               // set when user log in - for eg ID from users table,
     $_SESSION['user_name'] = 'John Smith'   // set when user log in - usermane from users table,
 ```
+
 General log table must have these specyfic columns and name:
 name: 'general_log'
 
