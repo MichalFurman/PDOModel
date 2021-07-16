@@ -227,7 +227,7 @@ delete_where - delete data from table - execute (commit) - return model object, 
     $this->delete_where($this->myTable, 'name = "John"') :object
 ```
 
-exist - check is data existing in database - return true/false
+exist - check if data exists in database - return true/false
 $this->exist(table,['name1' =>'value1', 'name2' => 'value2', ...], where)
 ```php
     $this->exist($this->myTable, array('name' => 'John', 'surname' => 'Smith') :bool
