@@ -2,7 +2,8 @@
 PDO access class with PDO model.
 
 ## Simply Usage
-- First set config for MySQL database (it can be simple array):
+
+First set config for MySQL database (it can be simple array):
 
 ```php
   $config = array();
@@ -13,16 +14,19 @@ PDO access class with PDO model.
   $config['DB_USERNAME']    = 'access';
   $config['DB_PASSWORD']    = 'password';
 ```
-- Then initialize singletone instance of PDOAccess by execute static method GET:
+
+Then initialize singletone instance of PDOAccess by execute static method GET:
 
 ```php
    use \mfurman\pdomodel\PDOAccess;
    $dbConnect = PDOAccess::get($config);
 ```
-- At this moment You have one instance of PDO Access class in Your app, You can get whis instance whenever You want.
 
-- Now You can create simply model by extending dataDb class (this class has state of specific model):
+At this moment You have one instance of PDO Access class in Your app, You can get whis instance whenever You want.
 
+Now You can create simply model by extending dataDb class (this class has state of specific model):
+
+#### Model example:
 ```php
     use \mfurman\pdomodel\PDOAccess;
     use \mfurman\pdomodel\dataDb;
@@ -37,28 +41,33 @@ PDO access class with PDO model.
             $this->commit = $commit;  
             parent::__construct(PDOAccess::get(), $commit, false);
         }    
-    
+        
+        // return associative array, table of users
         public function getAll() :array
         {
             return $this->read($this->users_table,'*')->get();
         }
 
+        // return associative array, users data
         public function getById(int $id) :array
         {
             return $this->read($this->users_table,'*','id = '.$id)->get();
         }
 
+        // return associative array, users data
         public function getByName(string $name) 
         {
             return $this->read($this->users_table,'*','user_name = "'.$name.'"')->get();
         }
 
-        public function add(array $data) :int
+        // return id of new row,
+        public function add(array $data) :int               
         {
             $this->set(array('user_name'=>$data['user_name']));        
             return $this->insert($this->users_table);
         }
 
+        // return true or false
         public function updateOne(array $data, int $id) :bool
         {
             if (empty($this->read($this->users_table,'*','id = '.$id)->get())) return false;
@@ -75,10 +84,158 @@ PDO access class with PDO model.
         }
     }
 ```
-... and etc.
+
+When You created models, You can create some repositories.
+In repositories You have control at database transactions and commits. 
+
+#### Repository example:
+```php
+    use Myvendor\Myapp\Models\Task;
+    use Myvendor\Myapp\Models\User;
+
+    class TaskRepository 
+    {
+        private $task;
+        private $user;
+        
+        (...)
+        
+        public function store(array $data) :array
+        {
+            $this->task = new Task(false);                      // - set autocommit to false (true/false)
+            $this->user = new User(false);                      // - set autocommit to false (true/false)
+            
+            // inform PDO about start transaction
+            $this->task->begin();
+            
+            $this->user->getByName($data['user_name']);
+            if ($this->user->is()) $data['user_id'] = $this->user->get('id');
+            else {
+                $this->user->reset();
+                $data['user_id'] = $this->user->add($data);
+            }
+
+            $id = $this->task->add($data);
+            
+            // inform PDO to commit ealier started transaction, if something go wrong - commit will rollback
+            $this->task->commit();
+            
+            // this toggle change model to autocommit transactions (true/false)
+            $this->task->set_commit(true);
+            return $this->task->getById($id);
+        }        
+
+```
 
 
+## Class dataDb has build public methods, which we can use in our model.
 
+Constructor - parametres: (PDOModel-singletone, commit, flag to register any saves to database in log table)
+```php
+    parent::__construct(object $dbaccess, $commit=true, $log_rec=false);
+```
+If You would register activity in log table You have to create 'general_log' table (see at the end).
+If not, just set this toggle to 'false' or do't use it - it's false by default
 
+set_commit - toggle to change auto commit - default by 'true'
+```php
+    $this->set_commit(bool $flag=true);
+```
 
+reset - reset state of model
+```php
+    $this->reset();
+```
+
+is - inform about state - is hydrated or not - return 'true/false'
+```php
+    $this->is();
+```
+
+set - set data to model 
+```php
+    $this->set('name','value');
+    
+    //or we can set multiple 
+    $this->set(array(
+        'name01' => 'value01'
+        'name02' => 'value02'
+        'name03' => 'value03'
+        )
+    );
+```
+
+get - get value by name from model
+```php
+    $this->get('name');
+    
+    //or if is multiple data table -  for eg. table of 'users'
+    $this->get('name',0); // - get name of first user
+```
+
+get_flat - get array of specific data as one dimension array
+```php
+    $this->get_flat();
+```
+
+del - remove some value from state by name
+```php
+    $this->del('name');
+```
+
+begin - start transaction when autocommit is false
+```php
+    $this->begin();
+```
+
+commit - commit started transaction when autocommit is false
+```php
+    $this->commit();
+```
+
+read - read data from table, hydrate state of model - execute (commit) - return model object, can be chaining
+$this->read(table, columns, where, order, limit) :object
+```php
+    $this->read($this->myTable, '*', 'name = "John"') :object
+    
+    // or
+    $this->read($this->myTable, array('ID', 'name', 'surname', 'city'), 'name = "John" AND age > 23', 'DESC', 1) :object
+```
+
+insert - insert data to database table - execute (commit) - return new ID of created row
+```php
+    $this->insert($this->myTable) :int
+```
+
+update - update data to existing row in table - execute (commit) - return model object, can be chaining
+```php
+    $this->update($this->myTable, $id) :object
+```
+
+update_where - update data to existing row in table - execute (commit) - return model object, can be chaining
+```php
+    $this->update_where($this->myTable, 'name = "John"') :object
+```
+
+delete_where - delete data from table - execute (commit) - return model object, can be chaining
+```php
+    $this->delete_where($this->myTable, 'name = "John"') :object
+```
+
+exist - check is data existing in database - return true/false
+$this->exist(table,['name1' =>'value1', 'name2' => 'value2', ...], where)
+```php
+    $this->exist($this->myTable, array('name' => 'John', 'surname' => 'Smith') :bool
+    
+    //or
+    $this->exist($this->myTable, array('name' => 'John', 'surname' => 'Smith', 'ID != '.$id) :bool    
+```
+
+Enjoy.
+
+## License :old_key:
+
+Under license (MIT, Apache etc)
+
+MIT © Michał Furman
 
