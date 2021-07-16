@@ -12,7 +12,7 @@
 		private $commit = true;
 		private $log_rec = true;
 
-		function __construct(object $dbaccess, $commit=true, $log_rec=true) 
+		function __construct(object $dbaccess, $commit=true, $log_rec=false) 
 		{
       			if (!isset($dbaccess)) throw new InvalidArgumentException('Missing idatabase class - please check arguments of dependency injection.');
 			$this->dbaccess = $dbaccess;
