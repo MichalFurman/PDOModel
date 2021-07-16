@@ -39,11 +39,9 @@ Now You can create simply model by extending dataDb class (this class has state 
     class User extends dataDb 
     {
         private $users_table = 'users';
-        private $commit;      
 
         public function __construct($commit=true) 
         {         
-            $this->commit = $commit;  
             parent::__construct(PDOAccess::get(), $commit, false);
         }    
         
