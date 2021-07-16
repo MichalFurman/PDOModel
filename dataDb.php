@@ -12,7 +12,7 @@
 		private $commit = true;
 		private $log_rec = true;
 
-		function __construct(object $dbaccess, $commit=true, $log_rec=false) 
+		function __construct(object $dbaccess, $commit=true, $log_rec=true) 
 		{
       			if (!isset($dbaccess)) throw new InvalidArgumentException('Missing idatabase class - please check arguments of dependency injection.');
 			$this->dbaccess = $dbaccess;
@@ -120,7 +120,7 @@
 			$this->dbaccess->unlock_tables();
 		}
 		
-		public function insert(string $table, bool $parse=true) :int
+		protected function insert(string $table, bool $parse=true) :int
 		{
 			if (isset($this->data[0]) && is_array($this->data[0])) {
 				$last_id = array();
@@ -136,28 +136,28 @@
 			return $last_id;
 		}
 
-		public function update(string $table, int $id, bool $parse=true) :object
+		protected function update(string $table, int $id, bool $parse=true) :object
 		{
 			$this->dbaccess->lock_tables($table, 'WRITE');
 			$this->dbaccess->update($table, $this->data, $id, $parse, $this->commit, $this->log_rec);
 			return $this;
 		}
 
-		public function update_where(string $table, string $where, bool $parse=true) :object
+		protected function update_where(string $table, string $where, bool $parse=true) :object
 		{
 			$this->dbaccess->lock_tables($table, 'WRITE');
 			$this->dbaccess->update_where($table, $this->data, $where, $parse, $this->commit, $this->log_rec);
 			return $this;
 		}
 
-		public function delete_where(string $table, string $where) :object
+		protected function delete_where(string $table, string $where) :object
 		{
 			$this->dbaccess->lock_tables($table, 'WRITE');
 			$this->dbaccess->delete_where($table, $where, $this->commit, $this->log_rec);
 			return $this;
 		}
 
-		public function read(string $table, $select, $where=null, $order=null, $limit=null) :object
+		protected function read(string $table, $select, $where=null, $order=null, $limit=null) :object
 		{
 			$this->reset();
 			$this->dbaccess->lock_tables($table, 'WRITE');
@@ -166,7 +166,7 @@
 			return $this;
 		}
 
-		public function read_upd(string $table, $select, $where=null, $order=null, $limit=null, $lock='FOR UPDATE') :object
+		protected function read_upd(string $table, $select, $where=null, $order=null, $limit=null, $lock='FOR UPDATE') :object
 		{
 			$this->reset();
 			$this->dbaccess->lock_tables($table, 'WRITE');
@@ -175,7 +175,7 @@
 			return $this;
 		}
 
-		public function read_share(string $table, $select, $where=null, $order=null, $limit=null, $lock='LOCK IN SHARE MODE') :object
+		protected function read_share(string $table, $select, $where=null, $order=null, $limit=null, $lock='LOCK IN SHARE MODE') :object
 		{
 			$this->reset();
 			$this->dbaccess->lock_tables($table, 'WRITE');

@@ -3,15 +3,14 @@
 
 	interface idataDb 
 	{
+		public function set_commit(bool $flag=true);
 		public function reset();
+		public function is();
 		public function set($name, $value=null);
 		public function get($name=null, $index=0);
+		public function get_flat ();
 		public function del($name=null, $index=0);
-
-		public function insert(string $table, bool $parse=true);
-		public function update(string $table, int $id, bool $parse=true);
-		public function update_where(string $table, string $where, bool $parse=true);
-		public function delete_where(string $table, string $where);
-		public function read(string $table, string $select, $where=null, $order=null, $limit=null);
+		public function begin();
+		public function commit();
 	}
 ?>
