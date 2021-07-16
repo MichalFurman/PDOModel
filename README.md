@@ -134,7 +134,7 @@ Constructor - parametres: (PDOModel-singletone, commit, flag to register any sav
 ```php
     parent::__construct(object $dbaccess, $commit=true, $log_rec=false);
 ```
-If You would register activity in log table You have to create 'general_log' table (see at the end).
+If You would like to register activity in log table You have to create 'general_log' table (see at the end).
 If not, just set this toggle to 'false' or do't use it - it's false by default
 
 set_commit - toggle to change auto commit - default by 'true'
@@ -230,6 +230,29 @@ $this->exist(table,['name1' =>'value1', 'name2' => 'value2', ...], where)
     //or
     $this->exist($this->myTable, array('name' => 'John', 'surname' => 'Smith', 'ID != '.$id) :bool    
 ```
+
+## General log table structures
+
+General log table is using when we have set session between user and server.
+It using session data to recognize existing user and his activity.
+We heve to set two session data for logged user:
+```php
+    $_SESSION['user_id'] = 12               // set when user log in - for eg ID from users table,
+    $_SESSION['user_name'] = 'John Smith'   // set when user log in - usermane from users table,
+```
+General log table must have these specyfic columns and name:
+name: 'general_log'
+
+columns:
+- 'date': timestampler,
+- 'user_id': int - $_SESSION['user_id'] 
+- 'user_name': string - $_SESSION['user_name']
+- 'method': string - (INSERT, UPDATE, DELETE)
+- 'value': string - (SQL string)
+
+All data in general log will be automatically filled when flag 'log_rec' is set to 'true'.
+
+
 
 Enjoy.
 
