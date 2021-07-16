@@ -133,7 +133,8 @@ In repositories You have control at database transactions and commits.
 
 ## Class dataDb has build methods, which we can use in our model or repository.
 
-#### Public methods (can be use in model and repository):
+
+### Public methods (can be use in model and repository):
 
 Constructor - parametres: (PDOModel-singletone, commit, flag to register any saves to database in log table)
 ```php
@@ -198,8 +199,8 @@ commit - commit started transaction when autocommit is false
     $this->commit();
 ```
 
-#### Protected methods (can be use in model only):
 
+### Protected methods (can be use in model only):
 
 read - read data from table, hydrate state of model - execute (commit) - return model object, can be chaining
 
