@@ -227,7 +227,7 @@
 
 		public function __set($name, $value) 
 		{
-            		if (!isset($this->data[1]) && array_key_exists($name, $this->data)) {
+            		if (!isset($this->data[1])) {
                 		$this->data[$name] = $value;
             		}
         	}
