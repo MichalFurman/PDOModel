@@ -227,14 +227,14 @@
 
 		public function __set($name, $value) 
 		{
-            		if (!$this->data[1] && array_key_exists($name, $this->data)) {
+            		if (!isset($this->data[1]) && array_key_exists($name, $this->data)) {
                 		$this->data[$name] = $value;
             		}
         	}
 
 		public function __get($name) 
 		{
-            		if (!$this->data[1] && array_key_exists($name, $this->data)) {
+            		if (!isset($this->data[1]) && array_key_exists($name, $this->data)) {
                 		return $this->data[$name];
             		}
         	}
