@@ -1,11 +1,11 @@
 # PDO Model
-PDO access class with PDO model.
+PDO access class with PDO model - version 1.0.2
 
 ## Changes from version 1.0.0
 - changed database table declaration in model - now You have to declare table in constructor as a parent property after PDOAccess instance,
-- changed execution protected methods in model - now You don't set name of table as parameter in execute method - table is declared by constructor,
+- changed execution protected methods in model - now You don't have to set name of table as parameter in execute method - table is declared by constructor,
 - added two public methods - "set_table" and "get_table" - methods are setter and getter for change declared name of table in constructor during model life,
-- changed way of execution public method: exist - now You can set a table for this method as the last calling parameter, if You don't declare this parameter method will execute on exist declared table by constructor,
+- changed way of execution public method "exist" - now You can set a table for this method as the last calling parameter, if You don't declare this parameter method will execute on exist declared table by constructor,
 
 
 ## Simple Instalation
@@ -49,47 +49,47 @@ Now You can create simply model by extending dataDb class (this class has state 
 
         public function __construct($commit=true) 
         {         
-            parent::__construct(PDOAccess::get(), $commit, false);
+            parent::__construct(PDOAccess::get(), $this->users_table, $commit, false);
         }    
         
         // return associative array, table of users
         public function getAll() :array
         {
-            return $this->read($this->users_table,'*')->get();
+            return $this->read('*')->get();
         }
 
         // return associative array, users data
         public function getById(int $id) :array
         {
-            return $this->read($this->users_table,'*','id = '.$id)->get();
+            return $this->read('*','id = '.$id)->get();
         }
 
         // return associative array, users data
         public function getByName(string $name) 
         {
-            return $this->read($this->users_table,'*','user_name = "'.$name.'"')->get();
+            return $this->read('*','user_name = "'.$name.'"')->get();
         }
 
         // return id of new row,
         public function add(array $data) :int               
         {
             $this->set(array('user_name'=>$data['user_name']));        
-            return $this->insert($this->users_table);
+            return $this->insert();
         }
 
         // return true or false
         public function updateOne(array $data, int $id) :bool
         {
-            if (empty($this->read($this->users_table,'*','id = '.$id)->get())) return false;
+            if (empty($this->read('*','id = '.$id)->get())) return false;
             $this->set(array('user_name'=>$data['user_name']));
-            $this->update($this->users_table, $id);
+            $this->update($id);
             return true;
         }  
 
         public function deleteById(int $id) :bool
         {
-            if (empty($this->read($this->users_table,'*','id = '.$id)->get())) return false;
-            $this->delete_where($this->users_table, 'id = '.$id);
+            if (empty($this->read('*','id = '.$id)->get())) return false;
+            $this->delete_where('id = '.$id);
             return true;
         }
     }
@@ -251,7 +251,7 @@ delete_where - delete data from table - execute (commit) - return model object, 
 
 exist - check if data exists in database - return true/false
 
-$this->exist(table,['name1' =>'value1', 'name2' => 'value2', ...], where)
+$this->exist(table,['name1' =>'value1', 'name2' => 'value2', ...], where, table (optional))
 ```php
     $this->exist(array('name' => 'John', 'surname' => 'Smith') :bool
     
