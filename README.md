@@ -1,6 +1,13 @@
 # PDO Model
 PDO access class with PDO model.
 
+## Changes from version 1.0.0
+- changed database table declaration in model - now You have to declare table in constructor as a parent property after PDOAccess instance,
+- changed execution protected methods in model - now You don't set name of table as parameter in execute method - table is declared by constructor,
+- added two public methods - "set_table" and "get_table" - methods are setter and getter for change declared name of table in constructor during model life,
+- changed way of execution public method: exist - now You can set a table for this method as the last calling parameter, if You don't declare this parameter method will execute on exist declared table by constructor,
+
+
 ## Simple Instalation
 
 Just use composer for install new dependency:
@@ -136,9 +143,9 @@ In repositories You have control at database transactions and commits.
 
 ### Public methods (can be use in model and repository):
 
-Constructor - parametres: (PDOModel-singletone, commit, flag to register any saves to database in log table)
+Constructor - parametres: (PDOModel-singletone, database_table, commit, flag to register any saves to database in log table)
 ```php
-    parent::__construct(object $dbaccess, $commit=true, $log_rec=false);
+    parent::__construct(object $dbaccess, $this->myTable, $commit=true, $log_rec=false);
 ```
 If You would like to register activity in log table You have to create 'general_log' table (see at the end).
 If not, just set this toggle to 'false' or do't use it - it's false by default
@@ -148,10 +155,20 @@ set_commit - toggle to change auto commit - default by 'true'
     $this->set_commit(bool $flag=true);
 ```
 
-reset - reset state of model
+reset - reset state of model, it doesn't reset table name
 ```php
     $this->reset();
 ```
+set_table - change or set database table for model (new method)
+```php
+    $this->set_table(string $table);
+```
+
+get_table - return actual database table name set in model (new method)
+```php
+    $this->get_table();
+```
+
 
 is - inform about state - is hydrated or not - return 'true/false'
 ```php
@@ -206,40 +223,40 @@ read - read data from table, hydrate state of model - execute (commit) - return 
 
 $this->read(table, columns, where, order, limit) :object
 ```php
-    $this->read($this->myTable, '*', 'name = "John"') :object
+    $this->read('*', 'name = "John"') :object
     
     // or
-    $this->read($this->myTable, array('ID', 'name', 'surname', 'city'), 'name = "John" AND age > 23', 'DESC', 1) :object
+    $this->read(array('ID', 'name', 'surname', 'city'), 'name = "John" AND age > 23', 'DESC', 1) :object
 ```
 
 insert - insert data to database table - execute (commit) - return new ID of created row
 ```php
-    $this->insert($this->myTable) :int
+    $this->insert() :int
 ```
 
 update - update data to existing row in table - execute (commit) - return model object, can be chaining
 ```php
-    $this->update($this->myTable, $id) :object
+    $this->update($id) :object
 ```
 
 update_where - update data to existing row in table - execute (commit) - return model object, can be chaining
 ```php
-    $this->update_where($this->myTable, 'name = "John"') :object
+    $this->update_where('name = "John"') :object
 ```
 
 delete_where - delete data from table - execute (commit) - return model object, can be chaining
 ```php
-    $this->delete_where($this->myTable, 'name = "John"') :object
+    $this->delete_where('name = "John"') :object
 ```
 
 exist - check if data exists in database - return true/false
 
 $this->exist(table,['name1' =>'value1', 'name2' => 'value2', ...], where)
 ```php
-    $this->exist($this->myTable, array('name' => 'John', 'surname' => 'Smith') :bool
+    $this->exist(array('name' => 'John', 'surname' => 'Smith') :bool
     
     //or
-    $this->exist($this->myTable, array('name' => 'John', 'surname' => 'Smith', 'ID != '.$id) :bool    
+    $this->exist(array('name' => 'John', 'surname' => 'Smith', 'ID != '.$id, $this->otherTable) :bool    
 ```
 
 ## General log table structures

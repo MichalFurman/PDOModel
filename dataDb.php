@@ -158,15 +158,15 @@
 
 		protected function update_where(string $where, bool $parse=true) :object
 		{
-			$this->dbaccess->lock_tables($table, 'WRITE');
-			$this->dbaccess->update_where($table, $this->data, $where, $parse, $this->commit, $this->log_rec);
+			$this->dbaccess->lock_tables($this->table, 'WRITE');
+			$this->dbaccess->update_where($this->table, $this->data, $where, $parse, $this->commit, $this->log_rec);
 			return $this;
 		}
 
-		protected function delete_where(string $table, string $where) :object
+		protected function delete_where(string $where) :object
 		{
-			$this->dbaccess->lock_tables($table, 'WRITE');
-			$this->dbaccess->delete_where($table, $where, $this->commit, $this->log_rec);
+			$this->dbaccess->lock_tables($this->table, 'WRITE');
+			$this->dbaccess->delete_where($this->table, $where, $this->commit, $this->log_rec);
 			return $this;
 		}
 
@@ -241,14 +241,14 @@
 
 		public function __set($name, $value) 
 		{
-            		if (!$this->data[1] && array_key_exists($name, $this->data)) {
+            		if (!isset($this->data[1])) {
                 		$this->data[$name] = $value;
             		}
         	}
 
 		public function __get($name) 
 		{
-            		if (!$this->data[1] && array_key_exists($name, $this->data)) {
+            		if (!isset($this->data[1]) && array_key_exists($name, $this->data)) {
                 		return $this->data[$name];
             		}
         	}

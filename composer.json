@@ -1,7 +1,7 @@
 {
     "name" : "mfurman/pdomodel",
     "description" : "It is a library of PDO model representations",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "autoload" : {
         "psr-4" : {
             "mfurman\\pdomodel\\" : ["/"]
@@ -17,6 +17,5 @@
     "keywords" : [
         "PDO", "model", "php", "Mysql", "SQL"
     ],
-    "license" : "MIT",
-    "minimum-stability": "dev"
+    "license" : "MIT"
 }
