@@ -11,7 +11,7 @@ PDO access class with PDO model - version 1.0.2
 ## Simple Instalation
 
 Just use composer for install new dependency:
-```composer require mfurman/pdomodel```
+```composer require mfurman/pdomodel "1.0.2"```
 
 
 ## Simple Usage
