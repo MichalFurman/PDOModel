@@ -34,7 +34,7 @@ Then initialize singletone instance of PDOAccess by execute static method GET:
    \mfurman\pdomodel\PDOAccess::get($config);
 ```
 
-At this moment You have one instance of PDO Access class in Your app, You can get whis instance whenever You want.
+At this moment You have one instance of PDO Access class in Your app, You can get this instance whenever You want.
 
 Now You can create simply model by extending dataDb class (this class has state of specific model):
 
