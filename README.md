@@ -139,7 +139,7 @@ In repositories You have control at database transactions and commits.
 ```
 
 
-## Class dataDb has build methods, which we can use in our model or repository.
+## Class dataDb has builded methods, which we can use in our model or repository.
 
 
 ### Public methods (can be use in model and repository):
@@ -148,7 +148,7 @@ Constructor - parametres: (PDOModel-singletone, database_table, commit, flag to 
 ```php
     parent::__construct(object $dbaccess, $this->myTable, $commit=true, $log_rec=false);
 ```
-If You would like to register activity in log table You have to create 'general_log' table (see at the end).
+If You would like to register activity in log table You have to create 'general_log' table (look at the end).
 If not, just set this toggle to 'false' or do't use it - it's false by default
 
 set_commit - toggle to change auto commit - default by 'true'
@@ -262,9 +262,9 @@ $this->exist(table,['name1' =>'value1', 'name2' => 'value2', ...], where, table 
 
 ## General log table structures
 
-General log table is using when we have set session between user and server.
+General log table is used when we have set session between user and server.
 It using session data to recognize existing user and his activity.
-We have to set two session data for logged in user:
+We have to set two session data for logged user:
 ```php
     $_SESSION['user_id'] = 12               // set when user log in - for eg ID from users table,
     $_SESSION['user_name'] = 'John Smith'   // set when user log in - username from users table,
