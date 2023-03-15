@@ -19,13 +19,14 @@ Just use composer for install new dependency:
 First set config for MySQL database (it can be simple array):
 
 ```php
-  $config = array();
-  $config['DB_CONNECTION']  = 'mysql';
-  $config['DB_HOST']        = 'localhost';
-  $config['DB_PORT']        = '3306';
-  $config['DB_DATABASE']    = 'testdb';
-  $config['DB_USERNAME']    = 'access';
-  $config['DB_PASSWORD']    = 'password';
+  $config = [
+    'DB_CONNECTION'  => 'mysql',
+    'DB_HOST'        => 'localhost',
+    'DB_PORT'        => '3306',
+    'DB_DATABASE'    => 'testdb',
+    'DB_USERNAME'    => 'access',
+    'DB_PASSWORD'    => 'password'
+  ];
 ```
 
 Then initialize singletone instance of PDOAccess by execute static method GET:
