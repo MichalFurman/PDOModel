@@ -1,17 +1,23 @@
 # PDO Model
-PDO access class with PDO model - version 1.0.2
+PDO access class with PDO model - version 1.0.3
 
-## Changes from version 1.0.0
+## Changes from version 1.0.3
+- minor corrections in code to version 1.0.2,
+- minor corrections in interfaces for exists classes,
+- added simply logger method,
+- added check for PDO singleton instance,
+- alignment for variable names,
+
+## Changes from version 1.0.2
 - changed database table declaration in model - now You have to declare table in constructor as a parent property after PDOAccess instance,
 - changed execution protected methods in model - now You don't have to set name of table as parameter in execute method - table is declared by constructor,
 - added two public methods - "set_table" and "get_table" - methods are setter and getter for change declared name of table in constructor during model life,
 - changed way of execution public method "exist" - now You can set a table for this method as the last calling parameter, if You don't declare this parameter method will execute on exist declared table by constructor,
 
-
 ## Simple Instalation
 
 Just use composer for install new dependency:
-```composer require mfurman/pdomodel "1.0.2"```
+```composer require mfurman/pdomodel "1.0.3"```
 
 
 ## Simple Usage

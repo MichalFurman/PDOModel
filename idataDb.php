@@ -3,14 +3,16 @@
 
 	interface idataDb 
 	{
-		public function set_commit(bool $flag=true);
-		public function reset();
-		public function is();
-		public function set($name, $value=null);
-		public function get($name=null, $index=0);
-		public function get_flat ();
-		public function del($name=null, $index=0);
-		public function begin();
-		public function commit();
+		public function set_table(string $table = null) :void;
+		public function get_table() :string;
+		public function set_commit(bool $flag = true) :void;
+		public function reset() :dataDb;
+		public function is() :bool;
+		public function set(mixed $names, $value = null) :dataDb;
+		public function unset(string $name=null, int $index=0);
+		public function get(mixed $names = null, int $index = 0) :mixed;
+		public function get_flat() :array;
+		public function begin() :void;
+		public function commit() :void;
 	}
 ?>

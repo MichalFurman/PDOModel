@@ -1,7 +1,7 @@
 {
     "name" : "mfurman/pdomodel",
     "description" : "It is a library of PDO model representations",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "autoload" : {
         "psr-4" : {
             "mfurman\\pdomodel\\" : ["/"]
