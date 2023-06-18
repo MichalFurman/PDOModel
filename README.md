@@ -256,14 +256,14 @@ delete_where - delete data from table - execute (commit) - return model object, 
     $this->delete_where('name = "John"') :object
 ```
 
-exist - check if data exists in database - return true/false
+exists - check if data exists in database - return true/false
 
-$this->exist(table,['name1' =>'value1', 'name2' => 'value2', ...], where, table (optional))
+$this->exists(table,['name1' =>'value1', 'name2' => 'value2', ...], where, table (optional))
 ```php
-    $this->exist(array('name' => 'John', 'surname' => 'Smith') :bool
+    $this->exists(array('name' => 'John', 'surname' => 'Smith') :bool
     
     //or
-    $this->exist(array('name' => 'John', 'surname' => 'Smith', 'ID != '.$id, $this->otherTable) :bool    
+    $this->exists(array('name' => 'John', 'surname' => 'Smith', 'ID != '.$id, $this->otherTable) :bool    
 ```
 
 ## General log table structures
