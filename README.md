@@ -31,7 +31,8 @@ First set config for MySQL database (it can be simple array):
     'DB_PORT'        => '3306',
     'DB_DATABASE'    => 'testdb',
     'DB_USERNAME'    => 'access',
-    'DB_PASSWORD'    => 'password'
+    'DB_PASSWORD'    => 'password',
+    'LOGGER_DIR'     =>  'logger directory started from base directory of project (default "./errors")',
   ];
 ```
 
