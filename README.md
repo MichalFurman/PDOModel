@@ -233,7 +233,7 @@ $this->read(table, columns, where, order, limit) :object
     $this->read('*', 'name = "John"') :object
     
     // or
-    $this->read(array('ID', 'name', 'surname', 'city'), 'name = "John" AND age > 23', 'DESC', 1) :object
+    $this->read(['ID', 'name', 'surname', 'city'], 'name = "John" AND age > 23', 'DESC', 1) :object
 ```
 
 insert - insert data to database table - execute (commit) - return new ID of created row
@@ -258,12 +258,12 @@ delete_where - delete data from table - execute (commit) - return model object, 
 
 exists - check if data exists in database - return true/false
 
-$this->exists(table,['name1' =>'value1', 'name2' => 'value2', ...], where, table (optional))
+$this->exists(table,['name1' =>'value1', 'name2' => 'value2', ...], where(in SQL), table (optional))
 ```php
-    $this->exists(array('name' => 'John', 'surname' => 'Smith') :bool
+    $this->exists(['name' => 'John', 'surname' => 'Smith']) :bool
     
     //or
-    $this->exists(array('name' => 'John', 'surname' => 'Smith', 'ID != '.$id, $this->otherTable) :bool    
+    $this->exists(['name' => 'John', 'surname' => 'Smith'], 'ID != '.$id, $this->otherTable) :bool    
 ```
 
 ## General log table structures
